@@ -1,1 +1,1 @@
-web: gunicorn captions.wsgi
+web: gunicorn benetech.wsgi

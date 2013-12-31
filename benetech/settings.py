@@ -10,7 +10,6 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-import dj_database_url
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -58,20 +57,17 @@ WSGI_APPLICATION = 'benetech.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
-# if environ.has_key('DATABASE_URL'):
-#     url = urlparse(environ['DATABASE_URL'])
-#     DATABASES = {
-#         "default": {
-#             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#             'NAME': url.path[1:],
-#             'USER': url.username,
-#             'PASSWORD': url.password,
-#             'HOST': url.hostname,
-#             'PORT': url.port,
-#         }
-#     }
+DATABASES = {
+    "default": {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'depd0ii8p5euft',
+        'USER': 'nmlnqalssnqlmh',
+        'PASSWORD': 'V280yazu6v6raYzmsFh42zvwc-',
+        'HOST': 'ec2-54-197-241-79.compute-1.amazonaws.com',
+        'PORT': '5432',
+    }
+}
 
-DATABASES['default'] = dj_database_url.config()
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/

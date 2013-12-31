@@ -3,5 +3,3 @@ simplejson==3.3.1
 requests==2.0.1
 psycopg2==2.4.5
 gunicorn==18.0
-dj-database-url==0.2.2
-dj-static==0.0.5

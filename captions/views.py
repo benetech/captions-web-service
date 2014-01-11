@@ -13,14 +13,20 @@ def youTubeID(request, youtube_id):
     
     #youtube check
     url_youTube = "https://www.googleapis.com/youtube/v3/videos?id=" + youtube_id + "&part=contentDetails&key=AIzaSyD7c2JM-xjKq1PGfSGmg6JYrjwSlpHcW0c"  
-    result_youTube = requests.get(url_youTube)  
+    result_youTube = requests.get(url_youTube)
     youTube_data = json.loads(result_youTube.content)
-    youTube_response = youTube_data["items"][0]["contentDetails"]["caption"];  
     
-    if youTube_response == "true":
-        youTube_response = True
-    else:
-        youTube_response = False
+    #checking JSON for video ID error response
+    if not youTube_data["items"]:
+        error_response = True
+    else: 
+        error_response = False
+        youTube_response = youTube_data["items"][0]["contentDetails"]["caption"];  
+    
+        if youTube_response == "true":
+            youTube_response = True
+        else:
+            youTube_response = False
     
     #amara check
     #http://amara.org/api2/partners/videos/?video_url=http://www.youTube.com/watch?v=8OnfLEDAcB4&format=json
@@ -39,13 +45,20 @@ def youTubeID(request, youtube_id):
     else:
         amara_response = False
         
-    response = youTube_response or amara_response
+    #API requests have failed for Amara and YouTube
+    if error_response and not amara_response:
+         response_data = {
+             "status" : "error",
+             "data" : None,
+             "message": "YouTube and Amara API request fail, check video ID"
+         }
+    else: #API  requests have succeeded 
+        response = youTube_response or amara_response        
         
-        
-    response_data = {
-        "status" : "success",
-        "data" : { "amara_captions" : amara_response, "youtube_captions" : youTube_response, "captions" : response         
+        response_data = {
+            "status" : "success",
+            "data" : { "amara_captions" : amara_response, "youtube_captions" : youTube_response, "captions" : response         
+            }
         }
-    }
 
     return HttpResponse(simplejson.dumps(response_data), mimetype='application/json')

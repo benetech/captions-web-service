@@ -16,7 +16,7 @@ https://docs.djangoproject.com/en/1.6/howto/deployment/wsgi/
 # application = Cling(get_wsgi_application())
 
 import os
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "benetech_metadata.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE")
 
 from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()
